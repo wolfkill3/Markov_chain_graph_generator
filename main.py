@@ -3,7 +3,6 @@ import random as rm
 import networkx as nx
 import matplotlib.pyplot as plt
 import pylab
-from networkx.drawing.nx_agraph import to_agraph
 
 class Node:
     def __init__(self, key, value):
