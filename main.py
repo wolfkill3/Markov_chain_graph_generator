@@ -3,6 +3,7 @@ import random as rm
 import networkx as nx
 import matplotlib.pyplot as plt
 import pylab
+from networkx.drawing.nx_agraph import to_agraph
 
 class Node:
     def __init__(self, key, value):
@@ -65,23 +66,20 @@ keyValue.put(5,"5")
 
 
 
-graph.graph['edge'] = {'arrowsize': '0.6', 'splines': 'curved'}
-graph.graph['graph'] = {'scale': '3'}
 
+Matrix_P = [[0  ,1    ,0    ,0    ,0    ,0  ],
+            [0  ,0.9  ,0.1  ,0    ,0    ,0  ],
+            [0  ,0    ,0.8  ,0.2  ,0    ,0  ],
+            [0  ,0    ,0    ,0.7  ,0.3  ,0  ],
+            [0  ,0    ,0    ,0    ,0.6  ,0.4],
+            [0  ,0    ,0    ,0    ,0    ,1  ]]          
 
-Matrix_P = [[0  ,1  ,0  ,0  ,0  ,0],
-            [0  ,0.9  ,0.1  ,0  ,0  ,0],
-            [0  ,0  ,0.8  ,0.2  ,0  ,0],
-            [0  ,0  ,0  ,0.7  ,0.3  ,0],
-            [0  ,0  ,0  ,0  ,0.6  ,0.4],
-            [0  ,0  ,0  ,0  ,0  ,1]]          
-
-Matrix_C = [[1  ,-1  ,0  ,0  ,0  ,0],
-            [0  ,0.1  ,-0.1  ,0  ,0  ,0],
-            [0  ,0  ,0.2  ,-0.2  ,0  ,0],
-            [0  ,0  ,0  ,0.3  ,-0.3  ,0],
-            [0  ,0  ,0  ,0  ,0.4  ,-0.4],
-            [0  ,0  ,0  ,0  ,0  ,1]]  
+Matrix_C = [[1  ,-1   ,0    ,0     ,0     ,0   ],
+            [0  ,0.1  ,-0.1 ,0     ,0     ,0   ],
+            [0  ,0   ,0.2   ,-0.2  ,0     ,0   ],
+            [0  ,0   ,0     ,0.3   ,-0.3  ,0   ],
+            [0  ,0   ,0     ,0     ,0.4   ,-0.4],
+            [0  ,0   ,0     ,0     ,0     ,1   ]]  
 
 Matrix_T = [[1  ,0  ,0  ,0  ,0  ,0],
             [0  ,1  ,0  ,0  ,0  ,0],
@@ -118,6 +116,8 @@ prev_state = start_state
 print(start_state, '-->', end=" ")
 
 graph_cords =[]
+
+graph = nx.MultiDiGraph()
 
 for i in range(1,100):
   current_state = np.random.choice([0,1,2,3,4,5], p = Matrix_P[prev_state])
